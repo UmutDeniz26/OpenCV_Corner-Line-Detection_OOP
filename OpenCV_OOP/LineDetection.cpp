@@ -6,16 +6,16 @@ LineDetection::LineDetection(string path) :Detection(path, "Line Detection"),
 	treshold1(0), treshold2(0), apertureSize(0) {} 
 
 void LineDetection::setParameters(int treshold1, int treshold2, int apertureSize) {
-	while (bool flag = true) {
+	bool flag;
+	while (true) {
 		try {
 			flag = (treshold1 <= 0 || treshold1>255) || (treshold2 <= 0 || treshold2>255) || (apertureSize <= 0);
-			if (flag) {
-				throw invalid_argument("Invalid parameters!");
-			}
+			if (flag) {throw invalid_argument("Invalid parameters! (Line Detection)");}
+
 			break;
 		}
 		catch (const invalid_argument& e) {
-			cout << "Error: " << e.what() << " (LineDetection)" << endl;
+			cout << "Error: " << e.what() << endl;
 			cout << "Enter treshold1 (0-255): "; cin >> treshold1;
 			cout << "Enter treshold2 (0-255): "; cin >> treshold2;
 			cout << "Enter apertureSize (0-inf): "; cin >> apertureSize;

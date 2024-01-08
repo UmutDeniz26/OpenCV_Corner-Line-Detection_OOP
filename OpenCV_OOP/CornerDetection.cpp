@@ -8,16 +8,17 @@ CornerDetection::CornerDetection(string path) :Detection(path,"Corner Detection"
 	blockSize(0), apertureSize(0), threshold(0), circleTreshold(0) {}
 
 void CornerDetection::setParameters(int blockSize, int apertureSize, int threshold, int circleTreshold) {
-	while (bool flag = true) {
+	bool flag;
+	while (true) {
 		try {
+			
 			flag = (blockSize <= 0) || (apertureSize <= 0) || (threshold <= 0) || (circleTreshold <= 0);
-			if (flag) {
-				throw invalid_argument("Invalid parameters!");
-			}
+			if (flag) {throw invalid_argument("Invalid parameters! (Corner Detection)");}
+
 			break;
 		}
 		catch (const invalid_argument& e) {
-			cout << "Error: " << e.what() << " (CornerDetection)" << endl;
+			cout << "Error: " << e.what() << endl;
 			cout << "Enter blockSize (0-inf): "; cin >> blockSize;
 			cout << "Enter apertureSize (0-inf): "; cin >> apertureSize;
 			cout << "Enter threshold (0-inf): "; cin >> threshold;
