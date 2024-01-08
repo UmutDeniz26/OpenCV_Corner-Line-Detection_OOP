@@ -2,6 +2,8 @@
 using namespace cv;
 using namespace std;
 
+int Detection::outCounter = 0;
+
 Detection::Detection(string path, string title) :CommonProcess(path,title) {}
 
 void Detection::printConfig(void) const {
@@ -13,13 +15,22 @@ void Detection::printConfig(void) const {
 }
 
 void Detection::addOutputImage(string title, Mat image) {
+	imshow(title+ " in func ", image);
 	outputImages.insert(pair<string, Mat>(title, image));
 }
 
 void Detection::showOutputImages(void) const {
-	for_each(outputImages.begin(), outputImages.end(), [this](pair<string, Mat> element) {
+	auto it = outputImages.begin();
+	for_each(outputImages.begin(), outputImages.end(), [](pair<string, Mat> element) {
 		imshow(element.first, element.second);
+		cout << " Title: " << element.first << endl;
+		cout << " Average magnitude of Image last row : " << mean(element.second.row(element.second.rows - 1)) << endl;
 	});
+
+}
+
+int Detection::getandIncrementOutCounter(void) {
+	return outCounter++;
 }
 
 Detection::Detection(Mat image, string title) : CommonProcess(image, title) {

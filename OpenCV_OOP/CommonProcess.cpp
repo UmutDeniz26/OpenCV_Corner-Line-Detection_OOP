@@ -11,7 +11,7 @@ CommonProcess::CommonProcess(string path, string titleIn):title(titleIn),filePat
 	loadRawRGBImage(path);
 }
 CommonProcess::CommonProcess(Mat image, string titleIn) :title(titleIn), rawRGBImage(image), filePath(""){
-	size = rawRGBImage.size();
+	setSize(rawRGBImage.size());
 }
 
 Mat CommonProcess::getGrayScale()const {
@@ -25,7 +25,7 @@ Mat CommonProcess::getResizedImage(Size size)const {
 	return resizedImage;
 }
 string CommonProcess::getFilePath()const {return filePath;}
-Mat CommonProcess::getRawRGBImage()const {return rawRGBImage;}
+Mat CommonProcess::getRawRGBImage() {return rawRGBImage;}
 Size CommonProcess::getSize()const {return size;}
 string CommonProcess::getTitle()const {return title;}
 

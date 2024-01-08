@@ -12,11 +12,11 @@ class CornerDetection :
 			apertureSize – Aperture parameter for the Sobel() operator
 			k – Harris detector free parameter
 			threshold – Threshold for the Harris cornerness response
-			circleTreshold - Threshold for the circle detection
+			circlethreshold - Threshold for the circle detection
 		*/
 
-		void harrisCornerDetection(int blockSize, int apertureSize, double k, int threshold, int circleTreshold = 200);
-		void drawCirclesOnCorners(int treshold);
+		void harrisCornerDetection(int blockSize, int apertureSize, double k, int threshold, int circlethreshold = 200);
+		void drawCirclesOnCorners(int threshold);
 
 		void setParameters(int,int,int,int);
 		map<string, int> getParameters(void) const;
@@ -25,7 +25,7 @@ class CornerDetection :
 
 		~CornerDetection();
 	private:
-		int blockSize, apertureSize, threshold, circleTreshold;
+		int blockSize, apertureSize, threshold, circlethreshold;
 		Mat harrisImage;
 
 };

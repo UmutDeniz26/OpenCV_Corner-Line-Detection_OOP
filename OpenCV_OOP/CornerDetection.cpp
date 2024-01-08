@@ -5,14 +5,14 @@ using namespace cv;
 using namespace std;
 
 CornerDetection::CornerDetection(string path) :Detection(path,"Corner Detection"),
-	blockSize(0), apertureSize(0), threshold(0), circleTreshold(0) {}
+	blockSize(0), apertureSize(0), threshold(0), circlethreshold(0) {}
 
-void CornerDetection::setParameters(int blockSize, int apertureSize, int threshold, int circleTreshold) {
+void CornerDetection::setParameters(int blockSize, int apertureSize, int threshold, int circlethreshold) {
 	bool flag;
 	while (true) {
 		try {
 			
-			flag = (blockSize <= 0) || (apertureSize <= 0) || (threshold <= 0) || (circleTreshold <= 0);
+			flag = (blockSize <= 0) || (apertureSize <= 0) || (threshold <= 0) || (circlethreshold <= 0);
 			if (flag) {throw invalid_argument("Invalid parameters! (Corner Detection)");}
 
 			break;
@@ -22,30 +22,30 @@ void CornerDetection::setParameters(int blockSize, int apertureSize, int thresho
 			cout << "Enter blockSize (0-inf): "; cin >> blockSize;
 			cout << "Enter apertureSize (0-inf): "; cin >> apertureSize;
 			cout << "Enter threshold (0-inf): "; cin >> threshold;
-			cout << "Enter circleTreshold (0-inf): "; cin >> circleTreshold;
+			cout << "Enter circlethreshold (0-inf): "; cin >> circlethreshold;
 			continue;
 		}
 	}
 	this->blockSize = blockSize; this->apertureSize = apertureSize;
-	this->threshold = threshold; this->circleTreshold = circleTreshold;
+	this->threshold = threshold; this->circlethreshold = circlethreshold;
 }
 
 map<string, int> CornerDetection::getParameters(void) const {
-	return { {"blockSize", blockSize}, {"apertureSize", apertureSize}, {"threshold", threshold}, {"circleTreshold", circleTreshold} };
+	return { {"blockSize", blockSize}, {"apertureSize", apertureSize}, {"threshold", threshold}, {"circlethreshold", circlethreshold} };
 }
-void CornerDetection::harrisCornerDetection(int blockSize, int apertureSize, double k, int threshold, int circleTreshold) {
-	setParameters(blockSize, apertureSize, threshold, circleTreshold);
+void CornerDetection::harrisCornerDetection(int blockSize, int apertureSize, double k, int threshold, int circlethreshold) {
+	setParameters(blockSize, apertureSize, threshold, circlethreshold);
 	cornerHarris(getGrayScale(), harrisImage, blockSize, apertureSize, k);
 	normalize(harrisImage, harrisImage, 0, 255, NORM_MINMAX, CV_32FC1, Mat());
 	convertScaleAbs(harrisImage, harrisImage);
-	drawCirclesOnCorners(circleTreshold);
+	drawCirclesOnCorners(circlethreshold);
 	addOutputImage("Harris Image", harrisImage);
 }
 
-void CornerDetection::drawCirclesOnCorners(int treshold) {
+void CornerDetection::drawCirclesOnCorners(int threshold) {
 	for (int j = 0; j < harrisImage.rows; j++){
 		for (int i = 0; i < harrisImage.cols; i++){
-			if ((int)harrisImage.at<uchar>(j, i) > treshold){
+			if ((int)harrisImage.at<uchar>(j, i) > threshold){
 				circle(harrisImage, Point(i, j), 5, Scalar(0), 2, 8, 0);
 	}}}
 }

@@ -3,37 +3,44 @@ using namespace cv;
 using namespace std;
 
 LineDetection::LineDetection(string path) :Detection(path, "Line Detection"),
-	treshold1(0), treshold2(0), apertureSize(0) {} 
+	threshold1(0), threshold2(0), apertureSize(0) {} 
 
-void LineDetection::setParameters(int treshold1, int treshold2, int apertureSize) {
+void LineDetection::setParameters(int threshold1, int threshold2, int apertureSize) {
 	bool flag;
 	while (true) {
 		try {
-			flag = (treshold1 <= 0 || treshold1>255) || (treshold2 <= 0 || treshold2>255) || (apertureSize <= 0);
+			flag = (threshold1 <= 0 || threshold1>255) || (threshold2 <= 0 || threshold2>255) || (apertureSize <= 0);
 			if (flag) {throw invalid_argument("Invalid parameters! (Line Detection)");}
 
 			break;
 		}
 		catch (const invalid_argument& e) {
 			cout << "Error: " << e.what() << endl;
-			cout << "Enter treshold1 (0-255): "; cin >> treshold1;
-			cout << "Enter treshold2 (0-255): "; cin >> treshold2;
+			cout << "Enter threshold1 (0-255): "; cin >> threshold1;
+			cout << "Enter threshold2 (0-255): "; cin >> threshold2;
 			cout << "Enter apertureSize (0-inf): "; cin >> apertureSize;
 			continue;
 		}
     }
-    this->treshold1 = treshold1; this->treshold2 = treshold2; this->apertureSize = apertureSize;
+    this->threshold1 = threshold1; this->threshold2 = threshold2; this->apertureSize = apertureSize;
 }
 
 map<string, int> LineDetection::getParameters(void) const {
-	return { {"treshold1", treshold1}, {"treshold2", treshold2}, {"apertureSize", apertureSize} };
+	return { {"threshold1", threshold1}, {"threshold2", threshold2}, {"apertureSize", apertureSize} };
 }
 
-void LineDetection::cannyDetection(int treshold1, int treshold2, int apertureSize) {
-	setParameters(treshold1, treshold2, apertureSize);
+void LineDetection::cannyDetection(int threshold1, int threshold2, int apertureSize) {
+	setParameters(threshold1, threshold2, apertureSize);
+	//imshow("in func GrayScale Image " + to_string(Detection::getandIncrementOutCounter()), getGrayScale());
+	
+
+	cout << "Canny Image: " << getRawRGBImage().flags << endl;
 	Canny(getGrayScale(), cannyImage, 50, 200, 3);
-	addOutputImage("Canny Image", cannyImage);
+
+	addOutputImage("Canny Image " + to_string(Detection::getandIncrementOutCounter()), cannyImage);
+
 }
+
 
 void LineDetection::printConfig(void) const {
 	Detection::printConfig();

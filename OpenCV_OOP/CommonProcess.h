@@ -23,7 +23,7 @@ class CommonProcess
 		string getTitle(void) const;
 		Size getSize(void) const;
 		Mat getGrayScale(void) const;
-		Mat getRawRGBImage(void)const;
+		Mat getRawRGBImage(void);
 		Mat getResizedImage(Size) const;
 
 		virtual void printConfig(void) const;
