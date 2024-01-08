@@ -19,18 +19,21 @@ int main()
 
 	LineDetection ld("house.jpeg");
 	ld.setRawRGBImage(ld.getResizedImage(Size(512, 512)));
-	ld.cannyDetection(50, 200, 5);
+	ld.cannyDetection(50, 150, 3);
+
 
 	ld.loadRawRGBImage("lena.jpeg");
-
-	ld.cannyDetection(50, 200, 5);
-	
+	ld.cannyDetection(50, 150, 3);
 
 	ld.showOutputImages();
 
 	CornerDetection cd("house.jpeg");
-	cd.setRawRGBImage(cd.getResizedImage(Size(512, 512)));
-	cd.harrisCornerDetection(2, 3, 0.04, 100);
+	cd.setRawRGBImage( cd.getResizedImage(Size(512, 512)) );
+	cd.harrisCornerDetection(2, 3, 0.04, 100,108);
+	
+	cd.loadRawRGBImage("lena.jpeg");
+	cd.harrisCornerDetection(2, 3, 0.04, 100, 130);
+
 
 	cd.showOutputImages();
 
