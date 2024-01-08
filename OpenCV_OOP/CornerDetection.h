@@ -8,13 +8,13 @@ class CornerDetection :
 		CornerDetection(string);
 
 		/// This function detects corners using Harris Corner Detection algorithm
-		void harrisCornerDetection(int blockSize, int apertureSize, double k, int threshold, int circlethreshold);
+		void harrisCornerDetection(int blockSize, int apertureSize, double k, int circlethreshold);
 
 		/// This function draws circles on corners due to the threshold
 		void drawCirclesOnCorners(int threshold);
 
 		/// Setter Getters
-		void setParameters(int,int,double,int,int);
+		void setParameters(int,int,double,int);
 		map<string, double> getParameters(void) const;
 
 		/// This function prints the configuration of the object
@@ -23,7 +23,7 @@ class CornerDetection :
 		/// Destructor
 		~CornerDetection();
 	private:
-		int blockSize, apertureSize, threshold, circlethreshold;	/* parameters of the algorithm */
+		int blockSize, apertureSize, circlethreshold;	/* parameters of the algorithm */
 		double k;
 		Mat harrisImage;											/* output image */
 

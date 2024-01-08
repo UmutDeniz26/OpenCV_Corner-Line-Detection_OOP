@@ -14,21 +14,20 @@ using namespace std;
  * @param path The path to the image for corner detection.
  */
 CornerDetection::CornerDetection(string path) : Detection(path, "Corner Detection"),
-blockSize(0), apertureSize(0), k(0),threshold(0), circlethreshold(0) {}
+blockSize(0), apertureSize(0), k(0), circlethreshold(0) {}
 
 /**
  * @brief Sets the parameters for corner detection.
  * @param blockSize Size of the pixel neighborhood for corner detection.
  * @param apertureSize Aperture parameter for the Sobel operator.
  * @param k Harris detector free parameter.
- * @param threshold Threshold for corner detection.
  * @param circlethreshold Threshold for drawing circles on corners.
  */
-void CornerDetection::setParameters(int blockSize, int apertureSize, double k, int threshold, int circlethreshold) {
+void CornerDetection::setParameters(int blockSize, int apertureSize, double k, int circlethreshold) {
     bool flag;
     while (true) {
         try {
-            flag = (blockSize <= 0) || (apertureSize <= 0) || (threshold <= 0) || (circlethreshold <= 0) || (k <= 0);
+            flag = (blockSize <= 0) || (apertureSize <= 0) || (circlethreshold <= 0 && circlethreshold > 255) || (k <= 0);
             if (flag) {
                 throw invalid_argument("Invalid parameters! (Corner Detection)");
             }
@@ -42,16 +41,13 @@ void CornerDetection::setParameters(int blockSize, int apertureSize, double k, i
             cin >> apertureSize;
             cout << "Enter k (0-inf): ";
             cin >> k;
-            cout << "Enter threshold (0-inf): ";
-            cin >> threshold;
-            cout << "Enter circlethreshold (0-inf): ";
+            cout << "Enter circlethreshold (0-255): ";
             cin >> circlethreshold;
             continue;
         }
     }
     this->blockSize = blockSize;this->apertureSize = apertureSize;
-    this->threshold = threshold;this->circlethreshold = circlethreshold;
-    this->k = k;
+    this->circlethreshold = circlethreshold;this->k = k;
 }
 
 /**
@@ -60,7 +56,7 @@ void CornerDetection::setParameters(int blockSize, int apertureSize, double k, i
  */
 map<string, double> CornerDetection::getParameters(void) const {
     return { {"blockSize", blockSize}, {"apertureSize", apertureSize}, {"k", k},
-        {"threshold", threshold}, {"circlethreshold", circlethreshold} };
+        {"circlethreshold", circlethreshold} };
 }
 
 /**
@@ -71,9 +67,9 @@ map<string, double> CornerDetection::getParameters(void) const {
  * @param threshold Threshold for corner detection.
  * @param circlethreshold Threshold for drawing circles on corners.
  */
-void CornerDetection::harrisCornerDetection(int blockSize, int apertureSize, double k, int threshold, int circlethreshold) {
+void CornerDetection::harrisCornerDetection(int blockSize, int apertureSize, double k, int circlethreshold) {
     
-    setParameters(blockSize, apertureSize, k, threshold, circlethreshold);
+    setParameters(blockSize, apertureSize, k, circlethreshold);
     cornerHarris(getGrayScale(), harrisImage, getParameters()["blockSize"], getParameters()["apertureSize"], getParameters()["k"]);
     normalize(harrisImage, harrisImage, 0, 255, NORM_MINMAX, CV_32FC1, Mat());
     convertScaleAbs(harrisImage, harrisImage);
