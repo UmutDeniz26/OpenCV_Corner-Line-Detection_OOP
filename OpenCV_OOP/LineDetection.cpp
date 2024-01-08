@@ -29,18 +29,15 @@ map<string, int> LineDetection::getParameters(void) const {
 	return { {"threshold1", threshold1}, {"threshold2", threshold2}, {"apertureSize", apertureSize} };
 }
 
-void LineDetection::cannyDetection(int threshold1, int threshold2, int apertureSize) {
-	setParameters(threshold1, threshold2, apertureSize);
-	//imshow("in func GrayScale Image " + to_string(Detection::getandIncrementOutCounter()), getGrayScale());
-	
-
-	cout << "Canny Image: " << getRawRGBImage().flags << endl;
-	Canny(getGrayScale(), cannyImage, 50, 200, 3);
-
-	addOutputImage("Canny Image " + to_string(Detection::getandIncrementOutCounter()), cannyImage);
-
+Mat LineDetection::getCannyImage(void) const {
+	return cannyImage;
 }
 
+void LineDetection::cannyDetection(int threshold1, int threshold2, int apertureSize) {
+	setParameters(threshold1, threshold2, apertureSize);
+	Canny(getGrayScale(), cannyImage, 50, 200, 3);
+	addOutputImage("Canny Image " + to_string(Detection::getandIncrementOutCounter()), getCannyImage());
+}
 
 void LineDetection::printConfig(void) const {
 	Detection::printConfig();

@@ -22,19 +22,20 @@ int main()
 	ld.cannyDetection(50, 200, 5);
 
 	ld.loadRawRGBImage("lena.jpeg");
+
 	ld.cannyDetection(50, 200, 5);
 	
 
 	ld.showOutputImages();
 
-	//CornerDetection cd("house.jpeg");
-	//cd.setRawRGBImage(cd.getResizedImage(Size(512, 512)));
-	//cd.harrisCornerDetection(2, 3, 0.04, 100);
-	////cd.showImage("Harris Corner Detection");
-	//cd.showOutputImages();
+	CornerDetection cd("house.jpeg");
+	cd.setRawRGBImage(cd.getResizedImage(Size(512, 512)));
+	cd.harrisCornerDetection(2, 3, 0.04, 100);
 
-	//cd.printConfig(); 
-	//ld.printConfig();
+	cd.showOutputImages();
+
+	cd.printConfig(); 
+	ld.printConfig();
 
 	waitKey(0);
 	destroyAllWindows();

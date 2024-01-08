@@ -3,9 +3,12 @@
 #include <iostream>
 #include <string>
 
+
+
 class Detection :
     public CommonProcess
 {
+
     public:
 		Detection(string,string="untitled");
 		Detection(Mat,string="untitled");
@@ -14,13 +17,13 @@ class Detection :
 		
 		static int getandIncrementOutCounter(void);
 
-		void addOutputImage(string, Mat);
+		void addOutputImage(string, const Mat&);
 		void showOutputImages(void) const;
 
 		~Detection();
 
 	private:
 		static int outCounter;
-		map <string, Mat> outputImages;
+		map <string, const Mat> outputImages;
 };
 

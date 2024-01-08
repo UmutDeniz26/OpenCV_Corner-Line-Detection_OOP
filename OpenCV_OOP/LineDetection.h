@@ -9,6 +9,7 @@ class LineDetection :
         void cannyDetection(int threshold1, int threshold2, int apertureSize);
 
         void setParameters(int, int, int);
+        Mat getCannyImage(void)const ;
         map<string, int> getParameters(void) const;
 
         void printConfig(void) const;
