@@ -8,10 +8,17 @@ class Detection :
 {
     public:
 		Detection(string,string="untitled");
+		Detection(Mat,string="untitled");
+
+		void setParametersConfig(map<string, int> parametersConfig);
+		map<string, int> getParametersConfig(void) const;
+
+		virtual void printConfig(void) const;
 
 		~Detection();
 
-	protected:
+	private:
+		map<string, int> parametersConfig;
 
 };
 

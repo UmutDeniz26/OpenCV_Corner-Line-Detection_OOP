@@ -28,8 +28,6 @@ int main()
 	cd.harrisCornerDetection(2, 3, 0.04, 100, 130);
 	cd.showImage("Harris Corner Detection");
 
-
-
 	cd.printConfig(); 
 	ld.printConfig();
 

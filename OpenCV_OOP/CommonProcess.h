@@ -11,12 +11,15 @@ class CommonProcess
 {
 	public:
 		CommonProcess(string,string);
+		CommonProcess(Mat,string);
 		
 		void loadRawRGBImage(string);
 		void setRawRGBImage(Mat);
 		void setSize(Size);
 		void setTitle(string);
-		
+		void setFilePath(string);
+
+		string getFilePath(void) const;
 		string getTitle(void) const;
 		Size getSize(void) const;
 		Mat getGrayScale(void) const;
@@ -27,8 +30,8 @@ class CommonProcess
 		virtual void showImage(string) const;
 
 		~CommonProcess();
-	protected:
-		string title;
+	private:
+		string title,filePath;
 		Size size;
 		Mat rawRGBImage;
 
