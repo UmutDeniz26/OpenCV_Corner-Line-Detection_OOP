@@ -10,15 +10,14 @@ class Detection :
 		Detection(string,string="untitled");
 		Detection(Mat,string="untitled");
 
-		void setParametersConfig(map<string, int> parametersConfig);
-		map<string, int> getParametersConfig(void) const;
-
 		virtual void printConfig(void) const;
+
+		void addOutputImage(string, Mat);
+		void showOutputImages(void) const;
 
 		~Detection();
 
 	private:
-		map<string, int> parametersConfig;
-
+		map <string, Mat> outputImages;
 };
 

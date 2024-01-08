@@ -8,11 +8,14 @@ class LineDetection :
 
         void cannyDetection(int treshold1, int treshold2, int apertureSize);
 
-        virtual void showImage(string) const;
+        void setParameters(int, int, int);
+        map<string, int> getParameters(void) const;
+
         void printConfig(void) const;
 
         ~LineDetection();
     private:
+        int treshold1, treshold2, apertureSize;
         Mat cannyImage;
 
 };

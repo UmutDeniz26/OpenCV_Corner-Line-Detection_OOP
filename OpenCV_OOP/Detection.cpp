@@ -4,22 +4,23 @@ using namespace std;
 
 Detection::Detection(string path, string title) :CommonProcess(path,title) {}
 
-void Detection::setParametersConfig(map<string, int> parametersConfigIn) {
-	parametersConfig = parametersConfigIn;
-}
-map<string, int> Detection::getParametersConfig(void) const {
-	return parametersConfig;
-}
-
 void Detection::printConfig(void) const {
-	map<string, int> ::iterator itr;
-	
-	cout << endl<<"Parameters Config:" << endl;
-	std::for_each(parametersConfig.begin(), parametersConfig.end(), [](std::pair<std::string, int> element) {
-		cout << element.first << " : " << element.second << endl;
+	CommonProcess::printConfig();
+	cout << endl << "Output Images (" << outputImages.size() << "):" << endl;
+	for_each(outputImages.begin(), outputImages.end(), [](pair<string, Mat> element) {
+		cout << " Title: " << element.first << endl;
 	});
 }
 
+void Detection::addOutputImage(string title, Mat image) {
+	outputImages.insert(pair<string, Mat>(title, image));
+}
+
+void Detection::showOutputImages(void) const {
+	for_each(outputImages.begin(), outputImages.end(), [this](pair<string, Mat> element) {
+		imshow(element.first, element.second);
+	});
+}
 
 Detection::Detection(Mat image, string title) : CommonProcess(image, title) {
 

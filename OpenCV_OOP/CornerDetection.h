@@ -14,15 +14,18 @@ class CornerDetection :
 			threshold – Threshold for the Harris cornerness response
 			circleTreshold - Threshold for the circle detection
 		*/
+
 		void harrisCornerDetection(int blockSize, int apertureSize, double k, int threshold, int circleTreshold = 200);
 		void drawCirclesOnCorners(int treshold);
 
-		void showImage(string) const;
-		void printConfig(void) const;
+		void setParameters(int,int,int,int);
+		map<string, int> getParameters(void) const;
 
+		void printConfig(void) const;
 
 		~CornerDetection();
 	private:
+		int blockSize, apertureSize, threshold, circleTreshold;
 		Mat harrisImage;
 
 };

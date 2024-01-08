@@ -32,8 +32,8 @@ class CommonProcess
 		~CommonProcess();
 	private:
 		string title,filePath;
-		Size size;
 		Mat rawRGBImage;
+		Size size;
 
 };
 
